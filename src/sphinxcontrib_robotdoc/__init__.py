@@ -126,10 +126,8 @@ class TestCasesDirective(Directive):
 
     def run(self):
         source_directory = os.path.dirname(self.state.document.current_source)
-        to_cwd = os.path.relpath(os.getcwd(), source_directory)
-
         path = self.options.get('source', self.options.get('suite'))
-        filename = os.path.relpath(path, to_cwd)
+        filename = os.path.join(source_directory, path)
         suite = robot.parsing.TestData(source=filename)
 
         if self.content:
